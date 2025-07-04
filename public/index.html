@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam library Comparer</title>
+
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="UserInformation">
+        <h1>Steam library Comparer</h1>
+        <h1>User 1</h1>
+        <input id="user1">
+        <h1>User 2</h1>
+        <input id="user2">
+
+        <button id="submitButton">Submit</button>
+    </div>
+
+    <div id="matchingGameDisplay">
+
+    </div>
+</body>
+</html>
+
+<script>
+
+    document.getElementById("submitButton").addEventListener("click", function() {
+        compareLibraries()
+    })
+
+    async function compareLibraries() {
+        userid1 = document.getElementById("user1").value
+        userid2 = document.getElementById("user2").value
+        
+        let data = await fetch(`/compareLibraries?userIDs=${userid1}, ${userid2}`)
+        let request = await data.json()
+        console.log(request)
+
+
+        let gamesDisplay = document.getElementById("matchingGameDisplay")
+
+        for (let i = 0; i < request.length; i++) {
+            let gameDiv = document.createElement("div")
+            gameDiv.id = "gameDiv"
+            let gameIDdisplay = document.createElement("h1")
+            let gameNamedisplay = document.createElement("h1")
+            gameIDdisplay.innerHTML = request[i].appid
+            gameNamedisplay.innerHTML = request[i].gameName
+
+            gameDiv.appendChild(gameIDdisplay)
+            gameDiv.appendChild(gameNamedisplay)
+
+            gamesDisplay.appendChild(gameDiv)
+        }
+
+    }
+
+</script>
