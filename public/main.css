@@ -1,162 +1,204 @@
-/* Basic Color Palette */
-:root {
-    --primary-green: #4CAF50;    /* A clean green */
-    --dark-grey: #37474F;       /* Dark background */
-    --light-grey: #ECEFF1;     /* Light elements, text on dark bg */
-    --text-on-light: #37474F;   /* Dark text on light backgrounds */
-    --button-hover: #388E3C;    /* Darker green for button hover */
-    --card-background: #CFD8DC; /* Slightly darker light grey for game cards */
-}
-
-/* --- */
-
-/* Basic Reset & Body Styling */
+/* Basic Resets and Body Styling */
 body {
-    font-family: Arial, sans-serif; /* Simple, common font */
     margin: 0;
-    padding: 20px;
-    background-color: var(--dark-grey);
-    color: var(--light-grey);
+    font-family: "Motiva Sans", sans-serif; /* Steam's font, or a good sans-serif fallback */
+    background-color: #1b2838; /* Dark blue-grey, common Steam background */
+    color: #e5e5e5; /* Light grey for text */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    min-height: 100vh; /* Full viewport height */
-    box-sizing: border-box; /* Include padding in element's total width and height */
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* --- */
+/* Headings */
+h1 {
+    color: #ffffff; /* White for main headings */
+    font-weight: 300; /* Lighter font weight for a modern look */
+    margin-bottom: 10px;
+}
 
-/* Main User Information Container */
-#UserInformation { /* Changed selector to use the new ID */
-    background-color: var(--primary-green);
-    padding: 25px;
+h1:first-of-type {
+    margin-top: 0;
+}
+
+/* User Input Section */
+#UserInformation {
+    background-color: #171a21; /* Even darker blue-grey for containers */
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
     margin-bottom: 30px;
     width: 100%;
-    max-width: 400px; /* Control max width */
+    max-width: 400px; /* Limit width for better appearance */
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
 }
 
-#UserInformation h1 { /* Apply styles specifically to h1s inside UserInformation */
-    color: var(--light-grey);
-    margin-bottom: 10px;
+#UserInformation h1 {
     font-size: 1.8em;
+    margin-bottom: 15px;
 }
-
-#UserInformation h1:nth-of-type(2), /* User 1 */
-#UserInformation h1:nth-of-type(3) { /* User 2 */
-    font-size: 1.2em;
-    margin-top: 20px;
-    margin-bottom: 8px;
-}
-
-/* --- */
 
 /* Input Fields */
-input[type="text"] { /* Applies to all text inputs */
+input {
     width: calc(100% - 20px); /* Full width minus padding */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: var(--light-grey);
-    color: var(--text-on-light);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #334a6d; /* Dark blue border */
+    border-radius: 4px;
+    background-color: #2a475e; /* Darker blue for input background */
+    color: #e5e5e5;
     font-size: 1em;
     box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-input[type="text"]:focus {
-    border-color: var(--primary-green);
+input::placeholder {
+    color: #a0a0a0;
+}
+
+input:focus {
+    border-color: #66c0f4; /* Steam blue on focus */
+    background-color: #31516e;
     outline: none;
 }
 
-/* --- */
-
 /* Submit Button */
 button {
-    background-color: var(--dark-grey);
-    color: var(--light-grey);
-    padding: 12px 20px;
+    background-color: #66c0f4; /* Standard Steam blue */
+    color: #ffffff;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 1.1em;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s ease;
-    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 button:hover {
-    background-color: var(--button-hover);
+    background-color: #55acee; /* Slightly darker blue on hover */
+    transform: translateY(-2px);
 }
 
-/* --- */
+button:active {
+    background-color: #449edd;
+    transform: translateY(0);
+}
 
-/* Matching Games Display Area */
+/* Matching Games Display */
 #matchingGameDisplay {
-    background-color: var(--light-grey);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 20px;
     width: 100%;
-    max-width: 700px; /* Wider for games */
-    min-height: 100px; /* Give it some space */
+    max-width: 1200px; /* Max width for the grid container */
+    padding: 0 20px;
     box-sizing: border-box;
-    display: grid; /* Use grid for game items */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive columns */
-    gap: 15px; /* Space between game items */
-    color: var(--text-on-light);
-    text-align: left;
 }
 
-/* --- */
-
-/* Individual Game Entry (using #gameDiv from your JS) */
-/* Note: While giving every generated div the same ID is technically invalid HTML,
-   we'll target it this way based on your provided JS for now.
-   A better approach is to give them a class, e.g., gameDiv.className = "game-card";
-   and then target ".game-card" in CSS.
-*/
-#gameDiv { /* Targeting the divs created by your JavaScript loop */
-    background-color: var(--card-background);
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Individual Game Card */
+.gameDiv {
+    background-color: #171a21;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Push items apart */
-    height: 100px; /* Basic fixed height */
-    box-sizing: border-box; /* Crucial for padding to be included in height */
-    overflow: hidden; /* Hide overflowing text */
-    transition: transform 0.1s ease;
+    align-items: center;
+    padding-bottom: 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#gameDiv:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
+.gameDiv:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Styles for h1s *inside* each game card */
-#gameDiv h1 {
-    color: var(--text-on-light); /* Dark text */
-    font-size: 1em;
-    margin: 0; /* Remove default h1 margins */
-    word-break: break-word;
+.gameDiv h1 {
+    font-size: 1.2em;
+    margin: 10px 0 5px;
+    padding: 0 10px;
+    color: #ffffff;
+    word-wrap: break-word; /* Prevent long names from overflowing */
 }
 
-/* Specific styling for the game name (the first h1 in the game card) */
-#gameDiv h1:nth-of-type(1) {
-    display: -webkit-box; /* For multi-line ellipsis in Webkit browsers */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+.gameDiv img {
+    width: 100%;
+    height: 160px; /* Fixed height for consistent image display */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    display: block;
+    border-bottom: 1px solid #2a475e;
 }
 
-/* Specific styling for the App ID (the second h1 in the game card) */
-#gameDiv h1:nth-of-type(2) {
+/* Game Categories */
+#gameCategoriesDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 0 10px;
+    gap: 5px; /* Space between categories */
+}
+
+#gameCategoriesDiv p1 { /* Changed from p to p1 as per your script */
+    background-color: #2a475e;
+    color: #b0d8f2;
+    padding: 5px 10px;
+    border-radius: 15px;
     font-size: 0.8em;
-    opacity: 0.8;
-    margin-top: auto; /* Push App ID to the bottom within the flex container */
+    white-space: nowrap; /* Keep categories on one line */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #UserInformation {
+        padding: 20px;
+    }
+
+    input, button {
+        font-size: 0.95em;
+    }
+
+    #matchingGameDisplay {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 0 10px;
+    }
+
+    .gameDiv h1 {
+        font-size: 1em;
+    }
+
+    .gameDiv img {
+        height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    #UserInformation {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    #UserInformation h1 {
+        font-size: 1.5em;
+    }
+
+    input, button {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    #matchingGameDisplay {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        padding: 0;
+    }
 }

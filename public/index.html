@@ -29,29 +29,52 @@
     document.getElementById("submitButton").addEventListener("click", function() {
         compareLibraries()
     })
+    
 
     async function compareLibraries() {
+        //Requests the userID's the user has inputted into the boxes
         userid1 = document.getElementById("user1").value
         userid2 = document.getElementById("user2").value
         
+        //Sends a request to the server with the two user ID's
         let data = await fetch(`/compareLibraries?userIDs=${userid1}, ${userid2}`)
         let request = await data.json()
         console.log(request)
 
-
+        
         let gamesDisplay = document.getElementById("matchingGameDisplay")
 
+        //Loops over the array that has been returned back from the server
         for (let i = 0; i < request.length; i++) {
+
+            //Creating a div to hold all of the game information
             let gameDiv = document.createElement("div")
             gameDiv.id = "gameDiv"
+            gameDiv.classList.add("gameDiv")
+
+            //Creating other HTML elements to hold information relevant to the game (i.e. AppID, name, image, categories, etc.)
             let gameIDdisplay = document.createElement("h1")
             let gameNamedisplay = document.createElement("h1")
+            let gameImage = document.createElement("img")
+            let gameCategoriesDiv = document.createElement("div")
+            gameCategoriesDiv.id = "gameCategoriesDiv"
             gameIDdisplay.innerHTML = request[i].appid
             gameNamedisplay.innerHTML = request[i].gameName
+            gameImage.src = request[i].image
 
+            //Looping over each category and appending it to the categories div
+            for (let j = 0; j < request[i].categories.length; j++) {
+                console.log(request[i].categories[j])
+                let gameCategory = document.createElement("p1")
+                gameCategory.innerHTML = request[i].categories[j].description
+                gameCategoriesDiv.appendChild(gameCategory)
+            }
+           
+            //Appending all elements to the gameDiv
             gameDiv.appendChild(gameIDdisplay)
+            gameDiv.appendChild(gameImage)
             gameDiv.appendChild(gameNamedisplay)
-
+            gameDiv.appendChild(gameCategoriesDiv)
             gamesDisplay.appendChild(gameDiv)
         }
 
